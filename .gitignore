@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+
+# Secrets (keep .env.example)
+.env
+.env.local
+.env.*.local
+
+# SQLite database and WAL sidecars
+data/
+*.db
+*.db-shm
+*.db-wal
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native builds and signing keys
+android/
+ios/
+*.apk
+*.aab
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Logs and debug
+*.log
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# TypeScript / test output
+*.tsbuildinfo
+coverage/
+
+# OS
+.DS_Store
+Thumbs.db

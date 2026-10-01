@@ -1,0 +1,31 @@
+# One command:  docker compose up --build
+#   API      -> http://localhost:4000
+#   Mailpit  -> http://localhost:8025   (web inbox where the OTP emails appear)
+services:
+  mailpit:
+    image: axllent/mailpit:latest
+    ports:
+      - "8025:8025" # web UI
+      - "1025:1025" # SMTP
+
+  api:
+    build: ./backend
+    ports:
+      - "4000:4000"
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      DB_PATH: /data/padosipro.db
+      # Demo-only secrets. Override with real ones (see backend/.env.example) for anything but local use.
+      JWT_SECRET: ${JWT_SECRET:-docker-demo-jwt-secret-change-me}
+      OTP_SECRET: ${OTP_SECRET:-docker-demo-otp-secret-change-me}
+      MAIL_TRANSPORT: smtp
+      SMTP_HOST: mailpit
+      SMTP_PORT: 1025
+    volumes:
+      - api-data:/data
+    depends_on:
+      - mailpit
+
+volumes:
+  api-data:
